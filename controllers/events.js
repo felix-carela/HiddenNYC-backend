@@ -1,6 +1,5 @@
 import Post from '../models/event.js'
 import User from '../models/user.js'
-import jwt from 'jsonwebtoken'
 
 export async function getPosts(req, res) {
   try {
