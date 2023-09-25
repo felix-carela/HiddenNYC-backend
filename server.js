@@ -15,7 +15,7 @@ app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
 
-app.use('/api/post/', eventsRouter)
+app.use('/api/event/', eventsRouter)
 app.use('/api/user/', usersRouter)
 
 app.listen(PORT, () => {

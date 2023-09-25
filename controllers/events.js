@@ -1,57 +1,69 @@
 import User from '../models/user.js'
 import Event from '../models/event.js'
 
+export async function getEventById(req, res) {
+  try {
+    const eventId = req.params.id;
+
+    // Find the event by ID in the database
+    const event = await Event.findById(eventId);
+
+    if (!event) {
+      // If the event is not found, send a 404 (Not Found) response
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    // If the event is found, send a JSON response with the event data
+    res.status(200).json(event);
+  } catch (error) {
+    // Handle any errors that occur during the process
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
+
 export async function getEvents(req, res) {
   try {
-    const events = await Event.find().populate('author')
-    return res.status(200).json(events)
+    // Find all events in the database
+    const events = await Event.find();
+
+    // Send a JSON response with the list of events
+    res.status(200).json(events);
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: `Unable to load posts`,
-      db_message: error.message
-    })
+    // Handle any errors that occur during the process
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 }
 
-export async function getPostById(req, res) {
+
+export async function createEvent(req, res) {
   try {
-    const id = req.params.id
-    const post = await Post.findById(id).populate('author')
+    const { userId, address, category } = req.body;
 
-    if (!post) {
-      throw new Error(`Post with id:${id} doesn't exist`)
-    }
-
-    return res.status(200).json(post) 
-  } catch (error) {
-    res.status(404).json({
-      status: 404,
-      message: error.message
-    })
-  }
-}
-
-export async function createPost(req, res) {
-  try {
-    const { username, twuut } = req.body
-    const user = await User.findOne({ username: username })
+    // Find the user by ID in the database
+    const user = await User.findById(userId);
 
     if (!user) {
-      throw new Error(`User ${username} doesn't exist`)
+      // If the user is not found, send a 404 (Not Found) response
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    const newPost = await Post.create({
-      author: req.id,
-      date: new Date(),
-      text: twuut,
-    })
+    // Create a new event instance and set the author to the user's username
+    const newEvent = new Event({
+      author: user.username, // Assuming 'username' is the user's username field
+      address,
+      category,
+    });
 
-    res.status(200).json(newPost)
+    // Save the event to the database
+    const savedEvent = await newEvent.save();
+
+    // Send a JSON response with the saved event data
+    res.status(201).json(savedEvent);
   } catch (error) {
-    res.status(400).json({
-      status: 400,
-      message: error.message
-    })
+    // Handle any errors that occur during the process
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 }

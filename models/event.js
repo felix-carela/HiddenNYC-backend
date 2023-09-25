@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const eventSchema = new mongoose.Schema({
-  author: {
+  userId: {
     ref: 'User',
     type: mongoose.Schema.Types.ObjectId,
   },
