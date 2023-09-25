@@ -1,10 +1,10 @@
 import { Router } from "express";
-import * as postController from '../controllers/events.js'
+import * as eventController from '../controllers/events.js'
 
 const router = Router()
 
-router.get('/', postController.getPosts)
-router.get('/:id', postController.getPostById)
-router.post('/', postController.createPost)
+router.get('/', eventController.getPosts)
+router.get('/:id', eventController.getPostById)
+router.post('/', eventController.createPost)
 
 export default router

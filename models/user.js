@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
   username: String,
   googleId: String,
-  posts: [{
+  events: [{
     ref: 'Event',
     type: mongoose.Schema.Types.ObjectId,
   }]

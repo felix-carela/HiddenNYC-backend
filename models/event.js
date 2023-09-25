@@ -1,18 +1,14 @@
 import mongoose from "mongoose";
 
-const postSchema = new mongoose.Schema({
+const eventSchema = new mongoose.Schema({
   author: {
     ref: 'User',
     type: mongoose.Schema.Types.ObjectId,
   },
-  text: {
-    type: String,
-    require: true,
-    minLength: 1,
-    maxLength: 280
-  },
-  date: Date,
+  address: String,
+  category: {
+    enum: ['Music', 'Sports', 'Food', 'Arts', 'Other']
+  }
 })
 
-// Export Post
-export default mongoose.model('Post', postSchema)
+export default mongoose.model('Event', eventSchema)

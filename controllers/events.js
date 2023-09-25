@@ -1,10 +1,10 @@
-import Post from '../models/event.js'
 import User from '../models/user.js'
+import Event from '../models/event.js'
 
-export async function getPosts(req, res) {
+export async function getEvents(req, res) {
   try {
-    const posts = await Post.find().populate('author')
-    return res.status(200).json(posts)
+    const events = await Event.find().populate('author')
+    return res.status(200).json(events)
   } catch (error) {
     res.status(400).json({
       status: 400,
