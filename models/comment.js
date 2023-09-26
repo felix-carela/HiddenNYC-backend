@@ -13,17 +13,9 @@ const commentSchema = new mongoose.Schema({
     minlength: 1,
     maxlength: 1000
   },
-  post: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Post',
-    required: true
-  },
   createdAt: {
     type: Date,
     default: Date.now
-  },
-  updatedAt: {
-    type: Date
   }
 });
 
