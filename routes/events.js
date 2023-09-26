@@ -3,10 +3,8 @@ import * as eventController from '../controllers/events.js'
 
 const router = Router()
 
-// router.get('/:id', eventController.getEventById)
-// router.get('/event', eventController.getEvents)
-router.post('/', eventController.createEvent)
-// router.put('/:id', eventController.updateEvent)
-// router.delete('/:id', eventController.deleteEvent)
+router.get('/event', eventController.getEvents)
+router.post('/:id/', eventController.createEvent)
+router.delete('/:id', eventController.deleteEvent)
 
 export default router
