@@ -11,13 +11,18 @@ const likeSchema = new mongoose.Schema({
     ref: 'Event',
     required: true
   },
+  isLiked: {
+    type: Boolean,
+    required: true
+  },
   createdAt: {
     type: Date,
     default: Date.now
   }
 });
 
-// Define a unique compound index on user and event
+
+// This ensures a user can't like or dislike the same event more than once
 likeSchema.index({ user: 1, event: 1 }, { unique: true });
 
 export default mongoose.model('Like', likeSchema);
