@@ -5,7 +5,7 @@ const eventSchema = new mongoose.Schema({
     ref: 'User',
     type: mongoose.Schema.Types.ObjectId,
   },
-  eventName: {
+  name: {
     type: String,
     required: true,
     trim: true
@@ -29,9 +29,13 @@ const eventSchema = new mongoose.Schema({
       max: 180
     }
   },
-  category: {
+  imageUrl: {
     type: String,
-    enum: ['Music', 'Sports', 'Food', 'Arts', 'Other'],
+    required: true,
+    trim: true
+  },
+  description: {
+    type: String,
     required: true
   }
 })
