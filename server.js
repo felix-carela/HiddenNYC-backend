@@ -4,9 +4,10 @@ import morgan from 'morgan';
 import cors from 'cors';
 import './db/connection.js';
 import passport from 'passport';
+import session from 'express-session';
+import commentsRouter from './routes/comments.js';
 import eventsRouter from './routes/events.js';
 import usersRouter from './routes/users.js';
-import session from 'express-session';
 
 const PORT = process.env.PORT;
 const app = express();
@@ -24,6 +25,7 @@ app.use(morgan('dev'));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/api/comment/', commentsRouter);
 app.use('/api/event/', eventsRouter);
 app.use('/api/user/', usersRouter);
 
