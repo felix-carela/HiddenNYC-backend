@@ -6,7 +6,8 @@ export async function getEvents(req, res) {
 
 export async function createEvent(req, res) {
   console.log("This is the body: ", req.body);
-  console.log("This is the params: ", req.params)
+  console.log("This is the params: ", req.params);
+
   try {
     const { name, address, coordinates, imageUrl, description } = req.body;
     const userId = req.params.id;
@@ -43,45 +44,41 @@ export async function createEvent(req, res) {
   }
 }
 
-
 export async function deleteEvent(req, res) {
+  console.log("This is the body: ", req.body.eventId);
+  console.log("This is the params: ", req.params.id);
+
   try {
-    const { id } = req.params; 
-    if (!id) {
-      return res.status(400).json({ message: 'Event id is required' });
+    const userId = req.params.id; // Assuming you have the user ID in req.params
+    const eventId = req.body.eventId; // Assuming you pass the event ID in req.body
+
+    if (!userId || !eventId) {
+      return res.status(400).json({ message: 'User ID and Event ID are required' });
     }
 
-    const event = await Event.findById(id);
+    // Check if the provided user ID is valid
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Find the event by ID and check if it exists
+    const event = await Event.findById(eventId);
+
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    await Event.findByIdAndDelete(id);
+    // Check if the event belongs to the specified user
+    if (event.userId.toString() !== userId) {
+      return res.status(403).json({ message: 'Event does not belong to this user' });
+    }
+
+    // Delete the event
+    await Event.findByIdAndDelete(eventId);
+
     return res.status(200).json({ message: 'Event deleted successfully' });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Internal Server Error' });
-  }
-}
-
-export async function updateEvent(req, res) {
-  try {
-    const { id } = req.params; // assuming you are passing the id of the event in the request parameters
-    if (!id) {
-      return res.status(400).json({ message: 'Event id is required' });
-    }
-
-    const { address, category } = req.body; // assuming you want to update address and category of the event
-    if (!address || !category) {
-      return res.status(400).json({ message: 'Address and category are required' });
-    }
-
-    const updatedEvent = await Event.findByIdAndUpdate(id, { address, category }, { new: true });
-    if (!updatedEvent) {
-      return res.status(404).json({ message: 'Event not found' });
-    }
-
-    return res.status(200).json(updatedEvent);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Internal Server Error' });
