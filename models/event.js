@@ -5,6 +5,10 @@ const eventSchema = new mongoose.Schema({
     ref: 'User',
     type: mongoose.Schema.Types.ObjectId,
   },
+  comments: {
+    ref: 'Comment',
+    type: mongoose.Schema.Types.ObjectId,
+  },
   name: {
     type: String,
     required: true,

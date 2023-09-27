@@ -2,6 +2,16 @@ import User from '../models/user.js';
 import Event from '../models/event.js';
 
 export async function getEvents(req, res) {
+  try {
+    // Fetch all events from the database
+    const events = await Event.find();
+
+    // Send the events as a JSON response
+    res.status(200).json(events);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 }
 
 export async function createEvent(req, res) {
