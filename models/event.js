@@ -5,10 +5,6 @@ const eventSchema = new mongoose.Schema({
     ref: 'User',
     type: mongoose.Schema.Types.ObjectId,
   },
-  comments: {
-    ref: 'Comment',
-    type: mongoose.Schema.Types.ObjectId,
-  },
   name: {
     type: String,
     required: true,
@@ -41,7 +37,11 @@ const eventSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true
-  }
+  },
+  comments: [{
+    ref: 'Comment',
+    type: mongoose.Schema.Types.ObjectId,
+  }]
 })
 
 export default mongoose.model('Event', eventSchema);
