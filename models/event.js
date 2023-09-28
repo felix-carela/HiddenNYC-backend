@@ -7,20 +7,24 @@ const eventSchema = new mongoose.Schema({
   },
   name: {
     type: String,
+    required: true,
     trim: true
   },
   address: {
     type: String,
+    required: true,
     trim: true
   },
   coordinates: {
     lat: {
       type: Number,
+      required: true,
       min: -90,
       max: 90
     },
     lng: {
       type: Number,
+      required: true,
       min: -180,
       max: 180
     }
@@ -31,6 +35,7 @@ const eventSchema = new mongoose.Schema({
   },
   description: {
     type: String,
+    required: true
   },
   comments: [{
     ref: 'Comment',
