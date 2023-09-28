@@ -58,22 +58,17 @@ export async function createEvent(req, res) {
 }
 
 export async function deleteEvent(req, res) {
-  console.log("This is the body: ", req.body.eventId);
-  console.log("This is the params: ", req.params.id);
+  console.log('_________________')
+  console.log('_________________')
+  console.log(req.params)
+  console.log('_________________')
+  console.log('_________________')
 
   try {
-    const userId = req.params._id; // Assuming you have the user ID in req.params
-    const eventId = req.body.eventId; // Assuming you pass the event ID in req.body
+    const eventId = req.params.id;
 
-    if (!userId || !eventId) {
-      return res.status(400).json({ message: 'User ID and Event ID are required' });
-    }
-
-    // Check if the provided user ID is valid
-    const user = await User.findById(userId);
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+    if (!eventId) {
+      return res.status(400).json({ message: 'Event ID is required' });
     }
 
     // Find the event by ID and check if it exists
@@ -83,10 +78,12 @@ export async function deleteEvent(req, res) {
       return res.status(404).json({ message: 'Event not found' });
     }
 
-    // Check if the event belongs to the specified user
-    if (event.userId.toString() !== userId) {
-      return res.status(403).json({ message: 'Event does not belong to this user' });
-    }
+    const userId = event.userId;
+
+    // Remove the event ID from the user's list of events
+    await User.findByIdAndUpdate(userId, {
+      $pull: { events: eventId }  // Assuming the user has an 'events' array with event IDs
+    });
 
     // Delete the event
     await Event.findByIdAndDelete(eventId);
