@@ -14,12 +14,9 @@ export async function getEvents(req, res) {
 }
 
 export async function createEvent(req, res) {
-  console.log("This is the body: ", req.body);
-  console.log("This is the params: ", req.params);
-
+  console.log(req.body)
   try {
-    const { name, address, coordinates, imageUrl, description } = req.body;
-    const userId = req.body.userId;
+    const { name, address, coordinates, imageUrl, description, userId } = req.body;
 
     // Check if the provided user ID is valid
     const user = await User.findById(userId);

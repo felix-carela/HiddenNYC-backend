@@ -12,7 +12,7 @@
     "passport-google-oauth20": "^2.0.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "name": "hiddennyc-backend",
   "description": "HiddenNYC",
