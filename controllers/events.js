@@ -5,7 +5,6 @@ export async function getEvents(req, res) {
   try {
     // Fetch all events from the database
     const events = await Event.find();
-
     // Send the events as a JSON response
     res.status(200).json(events);
   } catch (error) {
@@ -20,7 +19,11 @@ export async function createEvent(req, res) {
 
   try {
     const { name, address, coordinates, imageUrl, description } = req.body;
-    const userId = req.params.id;
+    const userId = req.body.userId;
+    
+    console.log('=-----------=')
+    console.log(userId)
+    console.log('=-----------=')
 
     // Check if the provided user ID is valid
     const user = await User.findById(userId);
@@ -59,7 +62,7 @@ export async function deleteEvent(req, res) {
   console.log("This is the params: ", req.params.id);
 
   try {
-    const userId = req.params.id; // Assuming you have the user ID in req.params
+    const userId = req.params._id; // Assuming you have the user ID in req.params
     const eventId = req.body.eventId; // Assuming you pass the event ID in req.body
 
     if (!userId || !eventId) {
