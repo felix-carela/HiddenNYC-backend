@@ -34,12 +34,6 @@ This app is designed for creating and managing events. Users can create events, 
 - `Postman`
 - `Heroku & Vercel`
 
-## Entity Relationship Diagram
-
-![image](https://raw.git.generalassemb.ly/felix-carela-GA/Project-3-Proposal/main/HiddeNYC.jpeg?token=AAAMIBK6LIBB76JQA5IEYRDFD3GN6)
-
-![image](https://raw.git.generalassemb.ly/felix-carela-GA/Project-3-Proposal/main/HiddenNYC%20Data.png?token=AAAMIBLPU2ILML7WBLWNRQTFD3GPW)
-
 ## API Endpoints
 - Get /api/event : Indexs all events
 - Post /api/event/new : Create a new event
