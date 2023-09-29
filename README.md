@@ -63,7 +63,7 @@ This app is designed for creating and managing events. Users can create events, 
 
 ### Team Expectations
 - Felix & Naischa - Backend Developers
-- Lu & Axel - Front End Developers
+- Guoxing & Axel - Front End Developers
 
 #### Timeline - Daily Accountability
 
