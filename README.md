@@ -6,10 +6,10 @@ This application's name is HiddenNYC, it allows user's to explore lesser-known p
 ## Wire Frames
 
 **Login Page**
-![image](image.png)
+![image](<images/image.png>)
 
 **User Home Page**
-![image](<user homepage.png>)
+![image](<images/user homepage.png>)
 
 ## App Start
 Frontend : https://vercel.com/axellwitt/team-america-project-3-frontend
